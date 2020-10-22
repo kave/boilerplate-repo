@@ -15,5 +15,9 @@ RUN apt-get install -y --no-install-recommends \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Dependency Environment
-RUN pip install pipenv
-RUN pipenv install --system --deploy
+RUN pip install poetry
+# Project initialization:
+RUN poetry config virtualenvs.create false \
+  && poetry install --no-interaction --no-ansi
+
+CMD ["python", "main.py"]
